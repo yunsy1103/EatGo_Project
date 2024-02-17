@@ -2,25 +2,61 @@ package com.example.eatgo.application;
 
 import com.example.eatgo.domain.*;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.BDDMockito.given;
 
 public class RestaurantServiceTest {
 
+    @InjectMocks
     private RestaurantService restaurantService;
+
+    @Mock
     private RestaurantRepository restaurantRepository;
+
+    @Mock
     private MenuItemRepository menuItemRepository;
 
-    @Before
-    public void setup(){
-        menuItemRepository = new MenuItemRepositoryImpl();
-        restaurantRepository = new RestaurantRepositoryImpl();
-        restaurantService = new RestaurantService(restaurantRepository,menuItemRepository);
-    }//모든 테스트 실행 전 실행되는 것 (Before)
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+
+        mockRestaurantRepository();
+        mockMenuItemRepository();
+    }
+
+
+    private void mockRestaurantRepository() {
+        List<Restaurant> restaurants = new ArrayList<>();
+        Restaurant restaurant = new Restaurant(1004L,"Bob zip","Seoul");
+        restaurants.add(restaurant);
+
+        given(restaurantRepository.findAll())
+                .willReturn(restaurants);
+
+        given(restaurantRepository.findById(1004L))
+                .willReturn(Optional.of(restaurant));
+    }
+
+    private void mockMenuItemRepository() {
+        List<MenuItem> menuItems = new ArrayList<>();
+        menuItems.add(new MenuItem("Kimchi"));
+
+        given(menuItemRepository.findAll())
+                .willReturn(menuItems);
+    }
+
+
 
     @Test
     public void getRestaraunt(){

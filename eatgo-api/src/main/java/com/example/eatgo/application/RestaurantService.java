@@ -1,9 +1,9 @@
 package com.example.eatgo.application;
 
+import com.example.eatgo.domain.MenuItem;
 import com.example.eatgo.domain.MenuItemRepository;
 import com.example.eatgo.domain.Restaurant;
 import com.example.eatgo.domain.RestaurantRepository;
-import com.example.eatgo.domain.RestaurantRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,10 @@ public class RestaurantService {
         return restaurants;
     }
     public Restaurant getRestaurant(Long id){
-        Restaurant restaurant = restaurantRepository.findById(id);
+        Restaurant restaurant = restaurantRepository.findById(id).orElse(null);
+        List<MenuItem> menuItems = menuItemRepository.findAllByRestarauntId(id);
+        restaurant.setMenuItems(menuItems);
+
         return restaurant;
     }
 
