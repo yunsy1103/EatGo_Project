@@ -25,7 +25,7 @@ public class RestaurantControllerTest {
 
     @SpyBean(RestaurantService.class)
     private RestaurantService restaurantService;
-    @SpyBean(RestaurantRepositoryImpl.class)
+    @SpyBean(RestaurantRepository.class)
     private RestaurantRepository restaurantRepository;
     @SpyBean(MenuItemRepository.class)
     private MenuItemRepository menuItemRepository;

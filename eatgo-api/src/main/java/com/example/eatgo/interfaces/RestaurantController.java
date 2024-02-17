@@ -3,12 +3,14 @@ package com.example.eatgo.interfaces;
 import com.example.eatgo.application.RestaurantService;
 import com.example.eatgo.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class RestaurantController {
     @Autowired
